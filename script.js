@@ -1,4 +1,4 @@
-var InputData = ''
+var InputData = '';
 var DetachData = [];
 var text = [];
 function submit(value){    
@@ -7,10 +7,15 @@ function submit(value){
     errorCheck();
     dataSet();
     if(DetachData[2].toLowerCase() == 'r') {
-        pushRData()
+        pushRData();
     } else {
-        pushLData()
+        pushLData();
+    };
+    var answer = '';    
+    for(var i = 0; i <text.length; i++){
+        answer = answer + text[i];
     }
+    document.getElementById("answer").innerHTML = "정답은 " + answer + " 입니다";
 };
 
 function dataSet(){
@@ -24,7 +29,7 @@ function dataSet(){
         if(DetachData[2].toLowerCase() == 'r'){
             DetachData[2] = 'l';
         } else {
-            DetachData[2] = 'r'
+            DetachData[2] = 'r';
         }
         DetachData[1] = Math.abs(DetachData[1]);        
     }    
@@ -62,21 +67,28 @@ function pushRData(){
 function errorCheck(){
     var error = document.getElementById("error");
     if(DetachData.length != 3 || DetachData[2] === ""){                
-        error.innerHTML = "입력값을 잘못 입력하셨습니다.";
+        error.innerHTML = "단어 1개 숫자 1개 r 또는 l만 입력해주세요";
         DetachData = [];
     } else {
         error.innerHTML = "";
     };
 
     if(isNaN(DetachData[1])){
-        error.innerHTML = "입력값을 잘못 입력하셨습니다.";
+        error.innerHTML = "두 번째 입력 값은 숫자로만 입력해주세요";
         DetachData = [];
     } else {
         error.innerHTML = "";
     };
 
-    if(DetachData[2] !== 'r' && DetachData[2] !== 'l' && DetachData[2] !== 'R' && DetachData[2] !== 'L'){
-        error.innerHTML = "입력값을 잘못 입력하셨습니다.";
+    if(DetachData[1] >= 100 || DetachData[1] < -100){
+        error.innerHTML = "두 번째 입력 값은 -100 <= (입력값) < 100 범위로만  입력해주세요";
+        DetachData = [];
+    } else {
+        error.innerHTML = "";
+    }
+
+    if(DetachData[2].toLowerCase() !== 'r' && DetachData[2].toLowerCase() !== 'l'){
+        error.innerHTML = "세 번째 입력 값은 대소문자 구분없이 r 또는 l만 입력해주세요.";
         DetachData = [];
     } else{
         error.innerHTML = "";
